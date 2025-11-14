@@ -18,11 +18,13 @@ import (
 )
 
 func main() {
-	app := kingpin.New("minecraft-server-runner", "Runs a Minecraft server and streams output over TCP")
-	serverPath := app.Flag("server-path", "Path to the Minecraft server directory").Required().String()
-	port := app.Flag("port", "TCP port to listen on for connections").Default("25566").Int()
+	var (
+		serverPath = kingpin.Arg("server-path", "Path to the Minecraft server directory").Envar("MINECRAFT_SERVER_PATH").Required().String()
+		port       = kingpin.Flag("port", "TCP port to listen on for connections").Envar("MINECRAFT_SERVER_LOG_PORT").Default("25566").Int()
+	)
 
 	kingpin.HelpFlag.Short('h')
+
 	kingpin.Parse()
 
 	// Start TCP server
