@@ -1,0 +1,25 @@
+Source: minecraft-server-runner
+Section: golang
+Priority: optional
+Maintainer: Lena Voytek <lena@voytek.dev>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-golang,
+               golang-any,
+               golang-gopkg-alecthomas-kingpin.v2-dev,
+Testsuite: autopkgtest-pkg-go
+Standards-Version: 4.7.2
+Vcs-Browser: https://github.com/lvoytek/minecraft-server-runner
+Vcs-Git: https://github.com/lvoytek/minecraft-server-runner.git
+Homepage: https://github.com/lvoytek/minecraft-server-runner
+XS-Go-Import-Path: github.com/lvoytek/minecraft-server-runner
+
+Package: minecraft-server-runner
+Section: games
+Architecture: any
+Depends: openjdk-21-jre,
+         ${misc:Depends},
+         ${shlibs:Depends},
+Static-Built-Using: ${misc:Static-Built-Using}
+Description: Minecraft server runner
+  Run a Java edition Minecraft Server and provide logs over a network port.
+

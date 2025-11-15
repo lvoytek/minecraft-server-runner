@@ -1,0 +1,11 @@
+[Unit]
+Description=Minecraft Server Runner
+Documentation=https://github.com/lvoytek/minecraft-server-runner
+
+[Service]
+EnvironmentFile=/etc/default/minecraft-server-runner
+ExecStart=/usr/bin/minecraft-server-runner
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
