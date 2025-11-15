@@ -22,6 +22,7 @@ func main() {
 	var (
 		serverPath = kingpin.Arg("server-path", "Path to the Minecraft server directory").Envar("MINECRAFT_SERVER_PATH").Required().String()
 		port       = kingpin.Flag("port", "TCP port to listen on for connections").Envar("MINECRAFT_SERVER_LOG_PORT").Default("25566").Int()
+		customEXE  = kingpin.Flag("custom-exe", "Path to a custom Minecraft Server executable").Envar("MINECRAFT_SERVER_CUSTOM_EXE").String()
 	)
 
 	kingpin.HelpFlag.Short('h')
@@ -45,7 +46,7 @@ func main() {
 	)
 
 	// Start the Minecraft server in a goroutine so we can restart it if it crashes
-	go runServerWithRestart(*serverPath, outputCh)
+	go runServerWithRestart(*serverPath, *customEXE, outputCh)
 
 	// Broadcast output to all connected clients
 	go func() {
@@ -112,15 +113,24 @@ func readOutput(reader io.Reader, outputCh chan []byte) {
 }
 
 // Start the Minecraft server and restart if it crashes
-func runServerWithRestart(serverPath string, outputCh chan []byte) {
+func runServerWithRestart(serverPath string, customEXE string, outputCh chan []byte) {
 	for {
-		cmd := exec.Command(
-			"java",
-			"-Xmx8192M",
-			"-Xms128M",
-			"-jar", "server.jar",
-			"nogui",
-		)
+		cmd := &exec.Cmd{}
+
+		if customEXE != "" {
+			cmd = exec.Command(
+				customEXE,
+			)
+		} else {
+			cmd = exec.Command(
+				"java",
+				"-Xmx8192M",
+				"-Xms128M",
+				"-jar", "server.jar",
+				"nogui",
+			)
+		}
+
 		cmd.Dir = serverPath
 
 		// Get stdout and stderr

@@ -31,9 +31,16 @@ The program will:
 ./minecraft-server-runner /path/to/minecraft/server --port 8080
 ```
 
+**Use a custom executable** (optional):
+```bash
+./minecraft-server-runner /path/to/minecraft/server --custom-exe ./run.sh
+```
+This can be used for modded servers such as FTB.
+
 **Environment Variables:**
-- `MINECRAFT_SERVER_PATH`: Set the server path via environment variable
-- `MINECRAFT_SERVER_LOG_PORT`: Set the port via environment variable
+- `MINECRAFT_SERVER_PATH`: Set the server path
+- `MINECRAFT_SERVER_LOG_PORT`: Set the port
+- `MINECRAFT_SERVER_CUSTOM_EXE`: Set a custom executable
 
 Example:
 ```bash
