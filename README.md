@@ -1,6 +1,26 @@
 # Minecraft Server Runner
 Run a Java edition Minecraft Server and provide logs over a network port
 
+## Setup Minecraft Server
+
+Start by downloading a minecraft server jar. The latest vanilla server jar file can be found at [minecraft.net](https://www.minecraft.net/en-us/download/server). Place the file in `/var/minecraft` or wherever you want the server to be stored.
+
+## Quick install on Ubuntu
+
+This application is available as a [PPA](https://launchpad.net/~lvoytek/+archive/ubuntu/minecraft-server-tools) for Ubuntu. To install it, run the following:
+
+```bash
+sudo add-apt-repository ppa:lvoytek/minecraft-server-tools
+sudo apt update
+sudo apt install minecraft-server-runner
+```
+
+This will automatically start the server with default settings. To update them, edit the defaults file at `/etc/default/minecraft-server-runner`, then run
+
+```bash
+sudo systemctl restart minecraft-server-runner
+```
+
 ## Building
 
 Requirements:
